@@ -78,6 +78,9 @@ void matrix_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
+    gpio_set_pin_output(13);
+    gpio_write_pin_low(13);
+
     nicola_off();
 }
 

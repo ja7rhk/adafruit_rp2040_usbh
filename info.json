@@ -19,7 +19,6 @@
     },
     "matrix_pins": {
         "cols": [
-            "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN",
             "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"
         ],
         "rows": [
