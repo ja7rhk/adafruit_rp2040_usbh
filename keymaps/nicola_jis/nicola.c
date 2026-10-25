@@ -75,14 +75,14 @@ void nicola_on(void) {
     is_nicola = true;
     nicola_clear();
     layer_on(nicola_layer);
-	gpio_write_pin_high(13);
+	gpio_write_pin_high(RED_LED);
 }
 
 void nicola_off(void) {
     is_nicola = false;
     nicola_clear();
     layer_off(nicola_layer);
-	gpio_write_pin_low(13);
+	gpio_write_pin_low(RED_LED);
 }
 
 // 親指シフトの状態

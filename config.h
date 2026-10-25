@@ -12,3 +12,6 @@
 #undef CRT0_EXTRA_CORES_NUMBER
 #endif
 #define CRT0_EXTRA_CORES_NUMBER 1
+
+#define RED_LED	13
+#define _5V_EN	18

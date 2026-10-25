@@ -78,8 +78,11 @@ void matrix_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-    gpio_set_pin_output(13);
-    gpio_write_pin_low(13);
+    gpio_set_pin_output(RED_LED);
+    gpio_write_pin_low(RED_LED);
+
+    gpio_set_pin_output(_5V_EN);
+    gpio_write_pin_high(_5V_EN);
 
     nicola_off();
 }
@@ -156,6 +159,23 @@ void matrix_scan_user(void) {
 
 	uint32_t now = timer_read32();
 	timer_tick(now);	// drive nicola state-machine.
+}
+
+
+void suspend_power_down_user(void) {
+    // スリープに入ったときの処理（LEDの完全消灯など）
+    gpio_write_pin_low(_5V_EN);
+    gpio_write_pin_low(RED_LED);
+}
+
+void suspend_wakeup_init_user(void) {
+    // スリープから復帰したときの処理
+    gpio_write_pin_high(_5V_EN);
+
+	if (nicola_state())
+	    gpio_write_pin_high(RED_LED);
+	else
+	    gpio_write_pin_low(RED_LED);
 }
 
 // NeoPixcelはPICO-PIO-USBドライバと競合するので使えない
