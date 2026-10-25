@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "tusb_common.h": "c",
+        "usb_descriptors.h": "c"
+    },
+    "cmake.sourceDirectory": "C:/msys64/home/Sumio Koseki/qmk_firmware_0_24_0/keyboards/converter/adafruit_rp2040_usbh/lib/Pico-PIO-USB"
+}
