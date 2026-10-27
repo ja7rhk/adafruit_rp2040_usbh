@@ -5,7 +5,6 @@
 
 #include "nicola.h" // NICOLA親指シフト
 #include "keymap_japanese.h"
-#include "twpair_on_jis.h" // us -> jis変換
 #include <timer.h>
 
 // IMEを監視する"observe_ime"を使用する場合、Num Lockでnicola on/offする。
@@ -24,49 +23,47 @@ enum keymap_layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /*
-
-           ,-------------------. ,-------------------. ,-------------------.
-           | F13| F14| F15| F16| | F17| F18| F19| F20| | F21| F22| F23| F24|
-   ,---.   |-------------------| |-------------------| |-------------------|  ,--------------.
-   | Esc|  |  F1|  F2|  F3|  F4| |  F5|  F6|  F7|  F8| |  F9| F10| F11| F12|  | PS | SL | PA |
-   `----'  `-------------------' '-------------------' `-------------------'  `--------------'
-   ,----------------------------------------------------+-------------------. ,--------------. ,-------------------.
-   |  `~|  1!|  2@|  3#|  4$|  5%|  6^|  7&|  8*|  9(|  0)|  -_|  =+|  Bspc | | In | Hm | PU | |  Nl|  P/|  P*|  P-|
-   |------+----+----+----+----+----+----+----+----+----+----+----+----+-----| |----+----+----| |----+----+----+----|
-   |   Tab| Q  |  W |  E |  R  |  T |  Y |  U |  I |  O |  P |  [{|  ]}| \| | | Dl | Ed | PD | |  P7|  P8|  P9|    |
-   |--------+----+----+----+----+----+----+----+----+----+----+----+--------| `--------------' |----+----+----+  P+|
-   |   CAP  |  A |  S |  D |  F |  G |  H |  J |  K |  L |  ;: |  '"| Enter |                  |  P4|  P5|  P6|    |
-   |----------+----+----+----+----+----+----+----+----+----+----+-----------|      ,----.      |----+----+----+----|
-   |    LSH   |  Z |  X  |  C |  V |  B |  N |  M | ,< |  .>|  /? |   RSH   |      | Up |      |  P1|  P2|  P3|    |
-   |-----+-----+-----+------------------------------+-----+-----+-----+-----| ,----+----+----. +---------+----+  PE|
-   | LC  | LG  | LA  |                              | RA  | RG  | WIN | RC  | | Lf | Dn |  Rt| |    P0   |  P.|    |
-   `------------------------------------------------------------------------' `--------------' `-------------------'
-
-   */
+    /* 0: plain Qwerty without layer switching
+     *         ,---------------. ,---------------. ,---------------.
+     *         |F13|F14|F15|F16| |F17|F18|F19|F20| |F21|F22|F23|F24|
+     * ,---.   |---------------| |---------------| |---------------| ,-----------.
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
+     * `---'   `---------------' `---------------' `---------------' `-----------'
+     * ,-----------------------------------------------------------. ,-----------. ,---------------. 
+     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  ^|JPY|Bsp| |Ins|Hom|PgU| |NmL|  /|  *|  -| 
+     * |-----------------------------------------------------------| |-----------| |---------------| 
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  @|  [|     | |Del|End|PgD| |  7|  8|  9|  +| 
+     * |------------------------------------------------------ Ent | `-----------' |---------------| 
+     * |CapsL |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  :|  ]|    |               |  4|  5|  6|   | 
+     * |-----------------------------------------------------------|     ,---.     |---------------| 
+     * |  Shft |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /| RO| Shift |     |Up |     |  1|  2|  3|Ent| 
+     * |-----------------------------------------------------------| ,-----------. |---------------| 
+     * | Ctl| Gui| Alt| MHEN|    Space   |HENK|KANA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |  0    |  .|   | 
+     * `-----------------------------------------------------------' `-----------' `---------------' 
+     */
 
     // QMK converter の場合は入力するHIDに依存するので、Mo()キーやFnキーは存在しない
 
-    [_QWERTY] = LAYOUT_68_ansi(
-                          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SCRL, KC_PAUS,
+    [_QWERTY] = LAYOUT_extended_jis(
+                      KC_F13,  KC_F14,  KC_F15,  KC_F16, KC_F17, KC_F18, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
+    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,               KC_PSCR, KC_SCRL, KC_PAUS,
 
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,    KC_INS,  KC_HOME, KC_PGUP,    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,    KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,                                   KC_P4,   KC_P5,   KC_P6,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,             KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
+    JP_ZKHK, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    JP_MINS, JP_CIRC, JP_YEN,  KC_BSPC,     KC_INS,  KC_HOME, KC_PGUP,    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    JP_AT,   JP_LBRC,                       KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+    JP_EISU, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    JP_SCLN, JP_COLN, JP_RBRC,          KC_ENT,                                    KC_P4,   KC_P5,   KC_P6,
+    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_INT1, KC_RSFT,              KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+    KC_LCTL, KC_LGUI, KC_LALT,          JP_MHEN,         KC_SPC,         JP_HENK,          KC_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     ),
 
-    [_NICOLA] = LAYOUT_68_ansi(
-                          KC_F13, NG_SHFTL, KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SCRL, KC_PAUS,
+    [_NICOLA] = LAYOUT_extended_jis(
+                      KC_F13,  KC_F14,  KC_F15,  KC_F16, KC_F17, KC_F18, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
+    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,               KC_PSCR, KC_SCRL, KC_PAUS,
 
-        KC_GRV,  NG_1,    NG_2,    NG_3,    NG_4,    NG_5,    NG_6,    NG_7,    NG_8,    NG_9,    NG_0,    NG_MINS, NG_EQL,  KC_BSPC,    KC_INS,  KC_HOME, KC_PGUP,    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
-        KC_TAB,  NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,    NG_Y,    NG_U,    NG_I,    NG_O,    NG_P,    NG_LBRC, NG_RBRC, NG_BSLS,    KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_CAPS, NG_A,    NG_S,    NG_D,    NG_F,    NG_G,    NG_H,    NG_J,    NG_K,    NG_L,    NG_SCLN, KC_BSPC,          KC_ENT,                                   KC_P4,   KC_P5,   KC_P6,
-        KC_LSFT,          NG_Z,    NG_X,    NG_C,    NG_V,    NG_B,    NG_N,    NG_M,    NG_COMM, NG_DOT,  NG_SLSH,          KC_RSFT,             KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-        KC_LCTL, KC_LGUI, KC_LALT,                            NG_SHFTR,                           KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
+    JP_ZKHK, NG_1,    NG_2,    NG_3,    NG_4,    NG_5,   NG_6,   NG_7,   NG_8,    NG_9,    NG_0,    NG_MINS, NG_CIRC, NG_BSLS, KC_BSPC,     KC_INS,  KC_HOME, KC_PGUP,    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
+    KC_TAB,  NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,   NG_Y,   NG_U,   NG_I,    NG_O,    NG_P,    NG_LBRC, NG_RBRC,                       KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+    JP_EISU, NG_A,    NG_S,    NG_D,    NG_F,    NG_G,   NG_H,   NG_J,   NG_K,    NG_L,    NG_SCLN, JP_COLN, JP_RBRC,          KC_ENT,                                    KC_P4,   KC_P5,   KC_P6,
+    KC_LSFT,          NG_Z,    NG_X,    NG_C,    NG_V,   NG_B,   NG_N,   NG_M,    NG_COMM, NG_DOT,  NG_SLSH,          KC_INT1, KC_RSFT,              KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+    KC_LCTL, KC_LGUI, KC_LALT,          NG_SHFTL,        NG_SHFTR,       JP_HENK,          KC_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     )
 };
 
@@ -80,9 +77,6 @@ void matrix_init_user(void) {
 void keyboard_post_init_user(void) {
     gpio_set_pin_output(RED_LED);
     gpio_write_pin_low(RED_LED);
-
-    gpio_set_pin_output(_5V_EN);
-    gpio_write_pin_high(_5V_EN);
 
     nicola_off();
 }
@@ -143,14 +137,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     if (a == false) return false;
 
-    // ANSI配列の記号キーをJIS配列に変換
-    // _NICOLAレイヤーの場合は変換しない
-    bool b = true;
-    if (get_highest_layer(layer_state) != _NICOLA) {
-        b = twpair_on_jis(keycode, record);
-    }
-    if (b == false) return false;
-
     return true;
 }
 
@@ -164,14 +150,11 @@ void matrix_scan_user(void) {
 
 void suspend_power_down_user(void) {
     // スリープに入ったときの処理（LEDの完全消灯など）
-    gpio_write_pin_low(_5V_EN);
     gpio_write_pin_low(RED_LED);
 }
 
 void suspend_wakeup_init_user(void) {
     // スリープから復帰したときの処理
-    gpio_write_pin_high(_5V_EN);
-
 	if (nicola_state())
 	    gpio_write_pin_high(RED_LED);
 	else

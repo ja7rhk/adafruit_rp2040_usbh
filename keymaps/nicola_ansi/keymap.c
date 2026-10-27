@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    */
 
-    // QMK converter の場合は入力するHIDに依存するので、Mo()キーやFnキーは存在しない
+    // QMK converter の場合は入力するHIDに依存するので、Mo()キーやFnキーは存在しない。
 
-    [_QWERTY] = LAYOUT_68_ansi(
+    [_QWERTY] = LAYOUT_extended_ansi(
                           KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
         KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SCRL, KC_PAUS,
 
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     ),
 
-    [_NICOLA] = LAYOUT_68_ansi(
+    [_NICOLA] = LAYOUT_extended_ansi(
                           KC_F13, NG_SHFTL, KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
         KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SCRL, KC_PAUS,
 
@@ -78,13 +78,12 @@ void matrix_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
+
     gpio_set_pin_output(RED_LED);
     gpio_write_pin_low(RED_LED);
 
-    gpio_set_pin_output(_5V_EN);
-    gpio_write_pin_high(_5V_EN);
-
     nicola_off();
+
 }
 
 
@@ -109,6 +108,7 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 #endif
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -154,6 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+
 // This function gets called at every matrix scan.
 void matrix_scan_user(void) {
 
@@ -162,21 +163,21 @@ void matrix_scan_user(void) {
 }
 
 
+// スリープ解除はキーボードから出来ないので、マウスなど他のデバイスから行う。
+
 void suspend_power_down_user(void) {
     // スリープに入ったときの処理（LEDの完全消灯など）
-    gpio_write_pin_low(_5V_EN);
     gpio_write_pin_low(RED_LED);
 }
 
 void suspend_wakeup_init_user(void) {
     // スリープから復帰したときの処理
-    gpio_write_pin_high(_5V_EN);
-
 	if (nicola_state())
 	    gpio_write_pin_high(RED_LED);
 	else
 	    gpio_write_pin_low(RED_LED);
 }
 
-// NeoPixcelはPICO-PIO-USBドライバと競合するので使えない
+// GPIO18でHost USBのVBUS制御をしているが、これを触るとスリープしなくなる。
 
+// NeoPixcelはPICO-PIO-USBドライバと競合するので使えない。

@@ -1,5 +1,4 @@
-SRC +=  nicola.c \
-		twpair_on_jis.c
+SRC +=  nicola.c
 
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes

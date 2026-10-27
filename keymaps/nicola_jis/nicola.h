@@ -35,8 +35,8 @@ void set_nicola(uint8_t);
 void timer_tick(uint32_t);
 //**
 
-//**koseki(2026.2.24)
-// send_string() 用のJISキーボードマクロ定義
+//**koseki(2026.8.5)
+// send_string() 逕ｨ縺ｮJIS繧ｭ繝ｼ繝懊�ｼ繝峨�槭け繝ｭ螳夂ｾｩ
 #define SS_JP_LPRN	SS_RSFT("8")			// (
 #define SS_JP_RPRN	SS_RSFT("9")			// )
 #define SS_JP_AT	SS_TAP(X_LBRC)			// @
@@ -55,7 +55,7 @@ void timer_tick(uint32_t);
 #define SS_JP_ASTR	SS_RSFT("'")			// *
 #define SS_JP_TILD	SS_RSFT("=")			// ~
 #define SS_JP_AMPR	SS_RSFT("6")			// ~
-#define SS_JP_CIRC	SS_TAP("=")			    // ^
+#define SS_JP_CIRC	SS_TAP(X_EQL)			// ^
 //**
 
 typedef enum nicola_keycodes {
@@ -72,7 +72,7 @@ typedef enum nicola_keycodes {
     NG_9,
     NG_0,
     NG_MINS,
-    NG_EQL,
+    NG_CIRC,
     NG_BSLS,
 
     NG_Q,
@@ -98,7 +98,6 @@ typedef enum nicola_keycodes {
     NG_K,
     NG_L,
     NG_SCLN,
-    NG_QUOT,
 
     NG_Z,
     NG_X,
