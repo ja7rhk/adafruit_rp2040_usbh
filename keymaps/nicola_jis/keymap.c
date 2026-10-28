@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    JP_AT,   JP_LBRC,                       KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
     JP_EISU, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    JP_SCLN, JP_COLN, JP_RBRC,          KC_ENT,                                    KC_P4,   KC_P5,   KC_P6,
     KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_INT1, KC_RSFT,              KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-    KC_LCTL, KC_LGUI, KC_LALT,          JP_MHEN,         KC_SPC,         JP_HENK,          KC_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
+    KC_LCTL, KC_LGUI, KC_LALT,          JP_MHEN,         KC_SPC,         JP_HENK,          JP_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     ),
 
     [_NICOLA] = LAYOUT_extended_jis(
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,   NG_Y,   NG_U,   NG_I,    NG_O,    NG_P,    NG_LBRC, NG_RBRC,                       KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
     JP_EISU, NG_A,    NG_S,    NG_D,    NG_F,    NG_G,   NG_H,   NG_J,   NG_K,    NG_L,    NG_SCLN, JP_COLN, JP_RBRC,          KC_ENT,                                    KC_P4,   KC_P5,   KC_P6,
     KC_LSFT,          NG_Z,    NG_X,    NG_C,    NG_V,   NG_B,   NG_N,   NG_M,    NG_COMM, NG_DOT,  NG_SLSH,          KC_INT1, KC_RSFT,              KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-    KC_LCTL, KC_LGUI, KC_LALT,          NG_SHFTL,        NG_SHFTR,       JP_HENK,          KC_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
+    KC_LCTL, KC_LGUI, KC_LALT,          NG_SHFTL,        NG_SHFTR,       JP_HENK,          JP_KANA, KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     )
 };
 
