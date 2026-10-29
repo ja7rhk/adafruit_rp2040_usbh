@@ -98,6 +98,7 @@ typedef enum nicola_keycodes {
     NG_K,
     NG_L,
     NG_SCLN,
+	NG_COLN,
 
     NG_Z,
     NG_X,

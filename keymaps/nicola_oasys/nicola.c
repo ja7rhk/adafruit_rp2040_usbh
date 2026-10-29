@@ -75,12 +75,14 @@ void nicola_on(void) {
     is_nicola = true;
     nicola_clear();
     layer_on(nicola_layer);
+    gpio_write_pin_high(RED_LED);
 }
 
 void nicola_off(void) {
     is_nicola = false;
     nicola_clear();
     layer_off(nicola_layer);
+    gpio_write_pin_low(RED_LED);
 }
 
 // 親指シフトの状態
@@ -169,6 +171,7 @@ void nicola_m_type(void) {
             case NG_K   : send_string("ki"); break;
             case NG_L   : send_string("i" ); break;
             case NG_SCLN: send_string("nn"); break;
+            case NG_COLN: send_string(",");  break;		// NICOLA-Fの場合はカンマ
 
             case NG_Z   : send_string("." ); break;     //ピリオドと句点は区別できない
             case NG_X   : send_string("hi"); break;
