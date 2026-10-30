@@ -158,5 +158,6 @@ void suspend_wakeup_init_user(void) {
 	    gpio_write_pin_low(RED_LED);
 }
 
+
 // NeoPixcelはPICO-PIO-USBドライバと競合するので使えない
 
